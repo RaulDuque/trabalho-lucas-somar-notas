@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
           TextField(),
           TextField(),
           ElevatedButton(
-            child: Text('Caucular'),
+            child: Text('Caucular notas'),
             onPressed: () {},
           )
         ],
