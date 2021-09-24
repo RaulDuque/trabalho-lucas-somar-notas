@@ -2,8 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MaterialApp(
-      theme: ThemeData(primarySwatch: Colors.purple), home: HomePage()));
+  runApp(MaterialApp(home: HomePage()));
 }
 
 class HomePage extends StatefulWidget {
@@ -23,7 +22,21 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Meu Primeiro app"),
+        title: Text("Culadora de notas "),
+        centerTitle: true,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Color(0xFF0800FF),
+                Color(0xFF0785E9),
+                Color(0xFF00FF36),
+              ],
+            ),
+          ),
+        ),
       ),
       body: Column(
         children: <Widget>[
