@@ -13,7 +13,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   var count = 0;
 
-  void increment() {
+  void somar() {
     count++;
     setState(() {});
   }
@@ -22,7 +22,10 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Culadora de notas "),
+        title: Text(
+          "Calculadora de notas ",
+          style: TextStyle(color: Colors.black),
+        ),
         centerTitle: true,
         flexibleSpace: Container(
           decoration: BoxDecoration(
@@ -30,9 +33,10 @@ class _HomePageState extends State<HomePage> {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                Color(0xFF0800FF),
-                Color(0xFF0785E9),
-                Color(0xFF00FF36),
+                Color(0xFF00B8D4),
+                Color(0xFF00E5FF),
+                Color(0xFF18FFFF),
+                Color(0xFF00BCD4)
               ],
             ),
           ),
@@ -40,10 +44,27 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Column(
         children: <Widget>[
-          TextField(),
-          TextField(),
-          TextField(),
-          TextField(),
+          Image.asset(
+            'assets/images/graduate.png',
+            height: 150,
+            width: 150,
+          ),
+          TextField(
+              decoration: InputDecoration(
+                  labelText: " Nota 1",
+                  labelStyle: TextStyle(color: Colors.black, fontSize: 20.0))),
+          TextField(
+              decoration: InputDecoration(
+                  labelText: " Nota 2",
+                  labelStyle: TextStyle(color: Colors.black, fontSize: 20.0))),
+          TextField(
+              decoration: InputDecoration(
+                  labelText: " Nota 3",
+                  labelStyle: TextStyle(color: Colors.black, fontSize: 20.0))),
+          TextField(
+              decoration: InputDecoration(
+                  labelText: " Nota 4",
+                  labelStyle: TextStyle(color: Colors.black, fontSize: 20.0))),
           ElevatedButton(
             child: Text('Caucular notas'),
             onPressed: () {},
