@@ -50,21 +50,40 @@ class _HomePageState extends State<HomePage> {
             width: 150,
           ),
           TextField(
-              decoration: InputDecoration(
-                  labelText: " Nota 1",
-                  labelStyle: TextStyle(color: Colors.black, fontSize: 20.0))),
+            decoration: InputDecoration(
+                labelText: " Nota 1",
+                labelStyle: TextStyle(color: Colors.black, fontSize: 20.0),
+                border: OutlineInputBorder()),
+            style: TextStyle(color: Colors.blue),
+            keyboardType: TextInputType.number,
+          ),
           TextField(
-              decoration: InputDecoration(
-                  labelText: " Nota 2",
-                  labelStyle: TextStyle(color: Colors.black, fontSize: 20.0))),
+            decoration: InputDecoration(
+                labelText: " Nota 2",
+                labelStyle: TextStyle(color: Colors.black, fontSize: 20.0),
+                border: OutlineInputBorder()),
+            style: TextStyle(color: Colors.blue),
+            keyboardType: TextInputType.number,
+          ),
           TextField(
-              decoration: InputDecoration(
-                  labelText: " Nota 3",
-                  labelStyle: TextStyle(color: Colors.black, fontSize: 20.0))),
+            decoration: InputDecoration(
+                labelText: " Nota 3",
+                labelStyle: TextStyle(color: Colors.black, fontSize: 20.0),
+                border: OutlineInputBorder()),
+            style: TextStyle(color: Colors.blue),
+            keyboardType: TextInputType.number,
+          ),
           TextField(
-              decoration: InputDecoration(
-                  labelText: " Nota 4",
-                  labelStyle: TextStyle(color: Colors.black, fontSize: 20.0))),
+            decoration: InputDecoration(
+                labelText: " Nota 4",
+                labelStyle: TextStyle(color: Colors.black, fontSize: 20.0),
+                border: OutlineInputBorder()),
+            style: TextStyle(color: Colors.blue),
+            keyboardType: TextInputType.number,
+          ),
+          SizedBox(
+            height: 40,
+          ),
           ElevatedButton(
             child: Text('Caucular notas'),
             onPressed: () {},
