@@ -28,12 +28,24 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final _formKey = GlobalKey<FormState>();
-  TextEditingController notaAController = TextEditingController();
-  TextEditingController notaBController = TextEditingController();
-  TextEditingController notaCController = TextEditingController();
-  TextEditingController notaDController = TextEditingController();
   String resultadoFinal = "";
+
+  final TextEditingController notaAController = TextEditingController();
+  final TextEditingController notaBController = TextEditingController();
+  final TextEditingController notaCController = TextEditingController();
+  final TextEditingController notaDController = TextEditingController();
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    notaAController.dispose();
+    notaBController.dispose();
+    notaCController.dispose();
+    notaDController.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +71,7 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16),
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
         child: Form(
           key: _formKey,
           child: Column(
@@ -69,7 +81,20 @@ class _HomePageState extends State<HomePage> {
                 height: 82,
                 width: 82,
               ),
-              SizedBox(height: 48),
+              SizedBox(height: resultadoFinal.isEmpty ? 48 : 32),
+
+              if (resultadoFinal.isNotEmpty) ...[
+                Text(
+                  resultadoFinal,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 36),
+              ],
 
               buildTextFormField("Nota 1", notaAController, 10),
               SizedBox(height: 24),
@@ -98,14 +123,6 @@ class _HomePageState extends State<HomePage> {
                   }
                 },
               ),
-
-              if (resultadoFinal.isNotEmpty) ...[
-                SizedBox(height: 24),
-                Text(
-                  resultadoFinal,
-                  style: TextStyle(color: Colors.black, fontSize: 20),
-                ),
-              ],
             ],
           ),
         ),
@@ -124,13 +141,14 @@ class _HomePageState extends State<HomePage> {
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
       ),
       keyboardType: TextInputType.number,
+      textInputAction: TextInputAction.next,
       controller: controller,
       validator: (value) {
         if (value == null || value.isEmpty) {
           return 'É necessário informar a nota';
         }
 
-        double? v = double.tryParse(value);
+        final double? v = double.tryParse(value);
 
         if (v == null) {
           return 'É necessário informar um valor numérico';
@@ -150,21 +168,21 @@ class _HomePageState extends State<HomePage> {
   }
 
   void somar() {
-    double notaA = double.parse(notaAController.text);
-    double notaB = double.parse(notaBController.text);
-    double notaC = double.parse(notaCController.text);
-    double notaD = double.parse(notaDController.text);
-    double total = notaA + notaB + notaC + notaD;
+    final double notaA = double.parse(notaAController.text);
+    final double notaB = double.parse(notaBController.text);
+    final double notaC = double.parse(notaCController.text);
+    final double notaD = double.parse(notaDController.text);
+    final double total = notaA + notaB + notaC + notaD;
 
     setState(() {
       if (total < 40) {
-        resultadoFinal = 'Você está no conceito D (${total.toStringAsPrecision(4)})';
+        resultadoFinal = 'O aluno está no conceito D, com ${total.toStringAsPrecision(4)} pontos';
       } else if (total < 60) {
-        resultadoFinal = 'Você está no conceito C (${total.toStringAsPrecision(4)})';
+        resultadoFinal = 'O aluno está no conceito C, com ${total.toStringAsPrecision(4)} pontos';
       } else if (total < 80) {
-        resultadoFinal = 'Você está no conceito B (${total.toStringAsPrecision(4)})';
+        resultadoFinal = 'O aluno está no conceito B, com ${total.toStringAsPrecision(4)} pontos';
       } else if (total <= 100) {
-        resultadoFinal = 'Você está no conceito A(${total.toStringAsPrecision(4)})';
+        resultadoFinal = 'O aluno está no conceito A, com ${total.toStringAsPrecision(4)} pontos';
       }
     });
   }
