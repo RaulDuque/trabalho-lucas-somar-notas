@@ -1,8 +1,23 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+/*
+Faça um app que receba do usuário 4 valores que represente as notas de um aluno.
+O somatório das 4 notas representa a nota final do aluno na disciplina de desenvolvimento mobile.
+
+Esse somatório pode ser classificado em 4 conceitos:
+Entre 0 e 39 (inclusive): conceito D
+Entre 40 e 59 (inclusive): conceito C
+Entre 60 e 79 (inclusive): conceito B
+Entre 80 e 100 (inclusive): conceito A
+
+A partir do somatório das notas seu app deve informar qual o conceito do aluno na disciplina.
+*/
+
 void main() {
-  runApp(MaterialApp(home: HomePage()));
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: HomePage(),
+  ));
 }
 
 class HomePage extends StatefulWidget {
@@ -11,24 +26,95 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String infot = "informe sua nota";
+  String infot = "";
   TextEditingController notaAController = TextEditingController();
   TextEditingController notaBController = TextEditingController();
   TextEditingController notaCController = TextEditingController();
   TextEditingController notaDController = TextEditingController();
 
-  Widget buildTextFild(String label, TextEditingController s) {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "Calculadora de notas",
+          style: TextStyle(color: Colors.white),
+        ),
+        centerTitle: true,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Color(0xFF1C2E7A),
+                Color(0xFF2A428C),
+                Color(0xFF3C58A0),
+              ],
+            ),
+          ),
+        ),
+      ),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(20),
+        child: Column(
+          children: <Widget>[
+            Image.asset(
+              'assets/images/graduate.png',
+              height: 82,
+              width: 82,
+            ),
+            SizedBox(height: 48),
+
+            buildTextFild("Nota 1", notaAController),
+            SizedBox(height: 32),
+
+            buildTextFild("Nota 2", notaBController),
+            SizedBox(height: 32),
+
+            buildTextFild("Nota 3", notaCController),
+            SizedBox(height: 32),
+
+            buildTextFild("Nota 4", notaDController),
+            SizedBox(height: 32),
+
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Color(0xFF2A428C),
+                padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 12),
+              ),
+              child: Text(
+                'Calcular nota final',
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              onPressed: somar,
+            ),
+
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                infot,
+                style: TextStyle(color: Colors.black, fontSize: 20),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildTextFild(String label, TextEditingController controller) {
     return TextField(
       decoration: InputDecoration(
         labelText: label,
         labelStyle: TextStyle(
           color: Colors.black,
-          fontSize: 20.0,
+          fontSize: 16,
         ),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
       ),
       keyboardType: TextInputType.number,
-      controller: s,
+      controller: controller,
     );
   }
 
@@ -38,6 +124,7 @@ class _HomePageState extends State<HomePage> {
     double notaC = double.parse(notaCController.text);
     double notaD = double.parse(notaDController.text);
     double total = notaA + notaB + notaC + notaD;
+
     setState(() {
       if (total <= 100 && total > 79) {
         infot = 'Você está no conceito A(${total.toStringAsPrecision(4)})';
@@ -55,74 +142,5 @@ class _HomePageState extends State<HomePage> {
             'Os valores nao podem ser menores que 0 (${total.toStringAsPrecision(4)})';
       }
     });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Calculadora de notas ",
-          style: TextStyle(color: Colors.black),
-        ),
-        centerTitle: true,
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Color(0xFF00B8D4),
-                Color(0xFF00E5FF),
-                Color(0xFF18FFFF),
-                Color(0xFF00BCD4)
-              ],
-            ),
-          ),
-        ),
-      ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(20),
-        child: Column(
-          children: <Widget>[
-            Image.asset(
-              'assets/images/graduate.png',
-              height: 150,
-              width: 150,
-            ),
-            SizedBox(height: 40),
-            buildTextFild("nota 1", notaAController),
-            Divider(),
-            buildTextFild("nota 2", notaBController),
-            Divider(),
-            buildTextFild("nota 3", notaCController),
-            Divider(),
-            buildTextFild("nota 4", notaDController),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Container(
-                height: 40,
-                child: ElevatedButton(
-                  child: Text(
-                    'Calcular notas',
-                    style: TextStyle(color: Colors.black, fontSize: 20),
-                  ),
-                  onPressed: () {
-                    somar();
-                  },
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                infot,
-                style: TextStyle(color: Colors.black, fontSize: 20),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
   }
 }
