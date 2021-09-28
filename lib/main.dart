@@ -21,7 +21,7 @@ void main() {
 }
 
 class HomePage extends StatefulWidget {
-  const HomePage({ Key? key }): super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -82,7 +82,6 @@ class _HomePageState extends State<HomePage> {
                 width: 82,
               ),
               SizedBox(height: resultadoFinal.isEmpty ? 48 : 32),
-
               if (resultadoFinal.isNotEmpty) ...[
                 Text(
                   resultadoFinal,
@@ -95,23 +94,19 @@ class _HomePageState extends State<HomePage> {
                 ),
                 SizedBox(height: 36),
               ],
-
               buildTextFormField("Nota 1", notaAController, 10),
               SizedBox(height: 24),
-
               buildTextFormField("Nota 2", notaBController, 20),
               SizedBox(height: 24),
-
               buildTextFormField("Nota 3", notaCController, 40),
               SizedBox(height: 24),
-
               buildTextFormField("Nota 4", notaDController, 30),
               SizedBox(height: 48),
-
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   primary: Color(0xFF2A428C),
-                  padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 12),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 28, vertical: 12),
                 ),
                 child: Text(
                   'Calcular nota final',
@@ -130,7 +125,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget buildTextFormField(String label, TextEditingController controller, int notaMax) {
+  Widget buildTextFormField(
+      String label, TextEditingController controller, int notaMax) {
     return TextFormField(
       decoration: InputDecoration(
         labelText: label,
@@ -176,14 +172,34 @@ class _HomePageState extends State<HomePage> {
 
     setState(() {
       if (total < 40) {
-        resultadoFinal = 'O aluno está no conceito D, com ${total.toStringAsPrecision(4)} pontos';
+        resultadoFinal =
+            'O aluno está no conceito D, com ${total.toStringAsPrecision(4)} pontos';
       } else if (total < 60) {
-        resultadoFinal = 'O aluno está no conceito C, com ${total.toStringAsPrecision(4)} pontos';
+        resultadoFinal =
+            'O aluno está no conceito C, com ${total.toStringAsPrecision(4)} pontos';
       } else if (total < 80) {
-        resultadoFinal = 'O aluno está no conceito B, com ${total.toStringAsPrecision(4)} pontos';
+        resultadoFinal =
+            'O aluno está no conceito B, com ${total.toStringAsPrecision(4)} pontos';
       } else if (total <= 100) {
-        resultadoFinal = 'O aluno está no conceito A, com ${total.toStringAsPrecision(4)} pontos';
+        resultadoFinal =
+            'O aluno está no conceito A, com ${total.toStringAsPrecision(4)} pontos';
       }
     });
+  }
+
+  showAlertDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(resultadoFinal),
+        content: Text("Parabens"),
+        actions: <Widget>[
+          TextButton(
+            child: const Text('C'),
+            onPressed: () {},
+          )
+        ],
+      ),
+    );
   }
 }
