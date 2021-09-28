@@ -192,7 +192,7 @@ class _HomePageState extends State<HomePage> {
       context: context,
       builder: (_) => AlertDialog(
         title: Text(resultadoFinal),
-        content: Text("Parabens"),
+        content: Text("Parabens vocé passou"),
         actions: <Widget>[
           TextButton(
             child: const Text('C'),
